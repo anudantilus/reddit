@@ -15,7 +15,7 @@ function getToken() {
     };
   
   var headers = {    
-    'user-agent' : 'app by username',
+    'user-agent' : 'appName by username',
     "Authorization" : "Basic " + Utilities.base64Encode("appId" + ':' + "secret")
     };
 
@@ -45,7 +45,7 @@ function getMe() {
     };
   
   var headers = {    
-    'user-agent' : 'app by username',
+    'user-agent' : 'appName by username',
     "Authorization" : token
     };
 
