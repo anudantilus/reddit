@@ -1,3 +1,31 @@
+// You need two sheets inside of the spreadsheet.  
+// The first sheet is 'control'.  
+// You setup B1 with the Number of Weeks out that you want to assign teams.
+// You setup B2 with the Number of Groups you have below.
+// Row 3 contains your headers, A3 = "Group 1", A4 = "Group 2", etc.  These names don't matter.
+// The second sheet is 'output'.
+// Leave this sheet blank.  The script will clear the contents the next time you execute the script.
+// setGroups is the launcher.
+
+function setGroups() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("output");
+  sheet.clearContents();
+  
+  var obj = assignGroups();
+  
+  var i;
+  
+  for (i = 0; i < Object.keys(obj).length; i++) {
+    title = Object.keys(obj)[i];
+    row = 1;
+    column = i + 1;
+    numRows = obj[title].length;
+    sheet.getRange(row, column).setValue(title);
+    sheet.getRange(row+1, column, numRows).setValues(obj[title]);
+  }
+}
+
 function createWeeklyTeams() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName("control");
@@ -53,23 +81,4 @@ function removeEmpty(arr) {
       }
     }
   return arr
-}
-
-function setGroups() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName("Weekly Assignments");
-  sheet.clearContents();
-  
-  var obj = assignGroups();
-  
-  var i;
-  
-  for (i = 0; i < Object.keys(obj).length; i++) {
-    title = Object.keys(obj)[i];
-    row = 1;
-    column = i + 1;
-    numRows = obj[title].length;
-    sheet.getRange(row, column).setValue(title);
-    sheet.getRange(row+1, column, numRows).setValues(obj[title]);
-  }
 }
