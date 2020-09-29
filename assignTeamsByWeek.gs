@@ -12,7 +12,7 @@ function setGroups() {
   var sheet = ss.getSheetByName("output");
   sheet.clearContents();
   
-  var obj = assignGroups();
+  var obj = createWeeklyTeams();
   
   var i;
   
